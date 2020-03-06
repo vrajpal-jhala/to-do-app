@@ -12,7 +12,7 @@ import {
 const useStyle = makeStyles(theme => ({
     toDoItem: {
         '&:hover': {
-            backgroundColor: 'rgb(238, 238, 238)',
+            backgroundColor: 'rgba(255, 224, 0, 0.7)',
         },
         '&:hover > .removeBtn': {
             visibility: 'visible'
@@ -20,6 +20,9 @@ const useStyle = makeStyles(theme => ({
         paddingLeft: theme.spacing(2),
         marginTop: theme.spacing(1),
         display: 'flex',
+        color: 'rgba(0, 0, 0, 0.7)',
+        backgroundColor: 'rgba(255, 247, 0, 0.3)',
+        boxShadow: '0px 2px 1px -1px rgba(255, 0, 0, 0.2), 0px 1px 1px 0px rgba(255, 0, 0, 0.14), 0px 1px 3px 0px rgba(255, 0, 0, 0.12)'
     },
     itemContent: {
         flex: 1,
@@ -27,9 +30,7 @@ const useStyle = makeStyles(theme => ({
     },
 }));
 
-export default function ToDoItem(props) {
-
-    const { content, removeItem } = props;
+const ToDoItem = ({ content, removeItem }) => {
 
     const classes = useStyle();
 
@@ -42,3 +43,5 @@ export default function ToDoItem(props) {
         </Paper>
     );
 }
+
+export default ToDoItem;

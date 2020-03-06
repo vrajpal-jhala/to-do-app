@@ -15,24 +15,25 @@ class ToDoApp extends React.Component {
             filteredList: [],
             type: '',
             open: false,
-            message: '',
+            message: ''
         }
     }
 
     addNewItem = (newItem) => {
+        var exist = false;
         if (this.state.toDoList.includes(newItem)) {
-            alert('exist');
-            newItem = '';
+            exist = true
         }
 
         const currData = this.state.toDoList;
-        const newData = currData.concat(newItem === '' ? [] : [newItem]);
+        const newData = currData.concat(exist ? [] : [newItem]);
+
         this.setState({
             toDoList: newData,
             filteredList: newData,
-            type: 'success',
-            message: 'Item added!',
-            open: true
+            type: exist ? 'error' : 'success',
+            message: exist ? 'Already exist!' : 'Item added!',
+            open: newItem === '' ? false : true
         });
     }
 
@@ -76,7 +77,7 @@ class ToDoApp extends React.Component {
                 <Header />
                 <SearchBar addItem={this.addNewItem} searchItem={this.filterItems} />
                 <ToDoList data={filteredList} removeItem={this.removeItem} />
-                <Snackbar open={open} autoHideDuration={2000} onClose={this.handleClose}>
+                <Snackbar open={open} autoHideDuration={1000} onClose={this.handleClose}>
                     <Alert onClose={this.handleClose} severity={type}>
                         {message}
                     </Alert>

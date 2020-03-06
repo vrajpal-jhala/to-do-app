@@ -7,12 +7,12 @@ import {
 
 const useStyles = makeStyles(theme => ({
     toDoList: {
-        padding: theme.spacing(2)
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2)
     }
 }));
 
-export default function ToDoList(props) {
-    const { data, removeItem } = props;
+const ToDoList = ({ data, removeItem }) => {
     const classes = useStyles();
 
     return (
@@ -25,3 +25,5 @@ export default function ToDoList(props) {
         </Box>
     );
 }
+
+export default ToDoList;

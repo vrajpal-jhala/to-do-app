@@ -2,10 +2,10 @@ import React, {
     useState
 } from 'react';
 import {
-    Grid,
-    InputAdornment,
-    TextField,
+    Paper,
+    InputBase,
     IconButton,
+    makeStyles
 } from '@material-ui/core';
 import {
     Search,
@@ -13,7 +13,29 @@ import {
     Add
 } from '@material-ui/icons';
 
+const useStyle = makeStyles(theme => ({
+    searchBar: {
+        display: 'flex',
+        alignItems: 'center',
+        paddingRight: theme.spacing(1),
+        backgroundColor: 'rgba(255, 165, 0, 0.1)',
+        color: 'rgba(0, 0, 0, 0.25)',
+        boxShadow: '0px 2px 1px -1px rgba(255, 0, 0, 0.2), 0px 1px 1px 0px rgba(255, 0, 0, 0.14), 0px 1px 3px 0px rgba(255, 0, 0, 0.12)'
+    },
+    searchIcon: {
+        padding: theme.spacing(2)
+    },
+    searchInput: {
+        flex: 1
+    },
+    actionBtn: {
+        color: 'rgba(0, 0, 0, 0.7)'
+    }
+}));
+
 const SearchBar = ({ addItem, searchItem }) => {
+
+    const classes = useStyle();
 
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -23,13 +45,17 @@ const SearchBar = ({ addItem, searchItem }) => {
     }
 
     function handleAdd() {
-        addItem(searchQuery);
-        setSearchQuery('');
+        if (searchQuery !== '') {
+            addItem(searchQuery);
+            setSearchQuery('');
+        }
     }
 
-    function handleClear(){
-        setSearchQuery('');
-        addItem(searchQuery);
+    function handleClear() {
+        if (searchQuery !== '') {
+            setSearchQuery('');
+            addItem('');
+        }
     }
 
     function handleKeyDown(e) {
@@ -39,34 +65,32 @@ const SearchBar = ({ addItem, searchItem }) => {
     }
 
     return (
-        <Grid container justify="center">
-            <Grid item xs={10}>
-                <TextField fullWidth
-                    variant="outlined"
-                    placeholder="Search"
-                    onChange={handleChange}
-                    onKeyDown={handleKeyDown}
-                    value={searchQuery}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <Search />
-                            </InputAdornment>
-                        ),
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton color="primary" onClick={handleAdd}>
-                                    <Add />
-                                </IconButton>
-                                <IconButton color="primary" onClick={handleClear}>
-                                    <Clear />
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-            </Grid>
-        </Grid>
+        <Paper
+            className={classes.searchBar}
+        >
+            <Search
+                className={classes.searchIcon}
+            />
+            <InputBase
+                className={classes.searchInput}
+                placeholder="Search..."
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                value={searchQuery}
+            />
+            <IconButton
+                className={classes.actionBtn}
+                onClick={handleAdd}
+            >
+                <Add />
+            </IconButton>
+            <IconButton
+                className={classes.actionBtn}
+                onClick={handleClear}
+            >
+                <Clear />
+            </IconButton>
+        </Paper>
     );
 }
 
