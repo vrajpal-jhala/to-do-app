@@ -41,7 +41,7 @@ const SearchBar = ({ addItem, searchItem }) => {
 
     function handleChange(e) {
         setSearchQuery(e.target.value);
-        searchItem(e.target.value);
+        searchItem(e.target.value.trim());
     }
 
     function handleAdd() {
