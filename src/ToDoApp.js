@@ -9,15 +9,18 @@ import Header from './Header';
 import SearchBar from './SearchBar';
 import ToDoList from './ToDoList';
 class ToDoApp extends React.Component {
+
+    getData = () => {
+        const localData = Store.get('toDoList');
+        return JSON.parse(localData) || [];
+    }
+
     constructor(props) {
         super(props);
 
-        const localData = Store.get('toDoList');
-
-        const initialData = localData === undefined ? [] : JSON.parse(localData);
+        const initialData = this.getData();
 
         this.state = {
-            toDoList: initialData,
             filteredList: initialData,
             noResults: false,
             type: '',
@@ -28,18 +31,19 @@ class ToDoApp extends React.Component {
 
     addNewItem = (newItem) => {
         var exist = false;
-        if (this.state.toDoList.includes(newItem)) {
+        const toDoList = this.getData();
+        console.log(toDoList);
+        if (toDoList.includes(newItem)) {
             exist = true
         }
 
-        const currData = this.state.toDoList;
+        const currData = toDoList;
         const newData = currData.concat(exist ? [] : [newItem]);
         Store.set('toDoList', JSON.stringify(newData));
 
         console.log(newData);
 
         this.setState({
-            toDoList: newData,
             filteredList: newData,
             noResults: false,
             type: exist ? 'error' : 'success',
@@ -49,11 +53,11 @@ class ToDoApp extends React.Component {
     }
 
     removeItem = (item) => {
-        const afterRemoval = this.state.toDoList.filter(listItem => listItem !== item);
+        const toDoList = this.getData();
+        const afterRemoval = toDoList.filter(listItem => listItem !== item);
         Store.set('toDoList', JSON.stringify(afterRemoval));
 
         this.setState({
-            toDoList: afterRemoval,
             filteredList: afterRemoval,
             noResults: false,
             type: 'error',
@@ -63,7 +67,9 @@ class ToDoApp extends React.Component {
     }
 
     filterItems = (searchQuery) => {
-        const afterFiltration = this.state.toDoList.filter((item) => {
+        const toDoList = this.getData();
+        console.log(toDoList);
+        const afterFiltration = toDoList.filter((item) => {
             return item.includes(searchQuery) ? true : false;
         });
 
@@ -79,10 +85,10 @@ class ToDoApp extends React.Component {
         });
     }
 
-    render() {
+    render = () => {
         const { filteredList, noResults, open, type, message } = this.state;
 
-        function Alert(props) {
+        const Alert = (props) => {
             return <MuiAlert elevation={6} variant="filled" {...props} />;
         }
 

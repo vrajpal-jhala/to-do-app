@@ -14,7 +14,7 @@ const useStyle = makeStyles({
     }
 });
 
-export default function Header() {
+const Header = () => {
 
     const classes = useStyle();
 
@@ -26,3 +26,5 @@ export default function Header() {
         </Grid>
     );
 }
+
+export default Header;

@@ -6,5 +6,5 @@ import './style.scss';
 
 ReactDOM.render(
     <ToDoApp />,
-    document.getElementById('toDoApp')
+    document.getElementById('root')
 );

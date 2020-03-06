@@ -39,12 +39,13 @@ const SearchBar = ({ addItem, searchItem }) => {
 
     const [searchQuery, setSearchQuery] = useState('');
 
-    function handleChange(e) {
-        setSearchQuery(e.target.value);
-        searchItem(e.target.value.trim());
+    const handleChange = ({ target }) => {
+        const { value } = target;
+        setSearchQuery(value);
+        searchItem(value.trim());
     }
 
-    function handleAdd() {
+    const handleAdd = () => {
         if (searchQuery.trim() !== '') {
             addItem(searchQuery.trim());
             setSearchQuery('');
@@ -53,12 +54,12 @@ const SearchBar = ({ addItem, searchItem }) => {
         }
     }
 
-    function handleClear() {
+    const handleClear = () => {
         setSearchQuery('');
         searchItem('');
     }
 
-    function handleKeyDown(e) {
+    const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             handleAdd();
         }
