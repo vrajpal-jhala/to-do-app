@@ -13,6 +13,7 @@ class ToDoApp extends React.Component {
         this.state = {
             toDoList: [],
             filteredList: [],
+            noResults: false,
             type: '',
             open: false,
             message: ''
@@ -31,9 +32,10 @@ class ToDoApp extends React.Component {
         this.setState({
             toDoList: newData,
             filteredList: newData,
+            noResults: false,
             type: exist ? 'error' : 'success',
             message: exist ? 'Already exist!' : 'Item added!',
-            open: newItem === '' ? false : true
+            open: true
         });
     }
 
@@ -43,6 +45,7 @@ class ToDoApp extends React.Component {
         this.setState({
             toDoList: afterRemoval,
             filteredList: afterRemoval,
+            noResults: false,
             type: 'error',
             message: 'Item removed!',
             open: true
@@ -55,7 +58,8 @@ class ToDoApp extends React.Component {
         });
 
         this.setState({
-            filteredList: afterFiltration
+            filteredList: afterFiltration,
+            noResults: afterFiltration.length === 0 && searchQuery !== '' ? true : false
         });
     }
 
@@ -66,7 +70,7 @@ class ToDoApp extends React.Component {
     }
 
     render() {
-        const { open, type, message, filteredList } = this.state;
+        const { filteredList, noResults, open, type, message } = this.state;
 
         function Alert(props) {
             return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -76,7 +80,8 @@ class ToDoApp extends React.Component {
             <Container maxWidth="md">
                 <Header />
                 <SearchBar addItem={this.addNewItem} searchItem={this.filterItems} />
-                <ToDoList data={filteredList} removeItem={this.removeItem} />
+                {filteredList.length > 0 && <ToDoList data={filteredList} removeItem={this.removeItem} />}
+                {noResults && <h2 style={{ textAlign: 'center' }}>{'No Results. Add?'}</h2>}
                 <Snackbar open={open} autoHideDuration={1000} onClose={this.handleClose}>
                     <Alert onClose={this.handleClose} severity={type}>
                         {message}

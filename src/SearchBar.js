@@ -52,10 +52,8 @@ const SearchBar = ({ addItem, searchItem }) => {
     }
 
     function handleClear() {
-        if (searchQuery !== '') {
-            setSearchQuery('');
-            addItem('');
-        }
+        setSearchQuery('');
+        searchItem('');
     }
 
     function handleKeyDown(e) {

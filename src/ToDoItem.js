@@ -20,6 +20,7 @@ const useStyle = makeStyles(theme => ({
         paddingLeft: theme.spacing(2),
         marginTop: theme.spacing(1),
         display: 'flex',
+        fontSize: 18,
         color: 'rgba(0, 0, 0, 0.7)',
         backgroundColor: 'rgba(255, 247, 0, 0.3)',
         boxShadow: '0px 2px 1px -1px rgba(255, 0, 0, 0.2), 0px 1px 1px 0px rgba(255, 0, 0, 0.14), 0px 1px 3px 0px rgba(255, 0, 0, 0.12)'
