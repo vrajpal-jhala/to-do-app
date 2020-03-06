@@ -1,4 +1,5 @@
 import React from 'react';
+import Store from 'store';
 import {
     Container,
     Snackbar
@@ -10,9 +11,14 @@ import ToDoList from './ToDoList';
 class ToDoApp extends React.Component {
     constructor(props) {
         super(props);
+
+        const localData = Store.get('toDoList');
+
+        const initialData = localData === undefined ? [] : JSON.parse(localData);
+
         this.state = {
-            toDoList: [],
-            filteredList: [],
+            toDoList: initialData,
+            filteredList: initialData,
             noResults: false,
             type: '',
             open: false,
@@ -28,6 +34,9 @@ class ToDoApp extends React.Component {
 
         const currData = this.state.toDoList;
         const newData = currData.concat(exist ? [] : [newItem]);
+        Store.set('toDoList', JSON.stringify(newData));
+
+        console.log(newData);
 
         this.setState({
             toDoList: newData,
@@ -41,6 +50,7 @@ class ToDoApp extends React.Component {
 
     removeItem = (item) => {
         const afterRemoval = this.state.toDoList.filter(listItem => listItem !== item);
+        Store.set('toDoList', JSON.stringify(afterRemoval));
 
         this.setState({
             toDoList: afterRemoval,
@@ -54,7 +64,7 @@ class ToDoApp extends React.Component {
 
     filterItems = (searchQuery) => {
         const afterFiltration = this.state.toDoList.filter((item) => {
-            return item.includes(searchQuery) ? true : searchQuery === '' ? true : false;
+            return item.includes(searchQuery) ? true : false;
         });
 
         this.setState({

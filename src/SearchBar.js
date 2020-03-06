@@ -45,9 +45,11 @@ const SearchBar = ({ addItem, searchItem }) => {
     }
 
     function handleAdd() {
-        if (searchQuery !== '') {
-            addItem(searchQuery);
+        if (searchQuery.trim() !== '') {
+            addItem(searchQuery.trim());
             setSearchQuery('');
+        } else {
+            handleClear();
         }
     }
 
