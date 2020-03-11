@@ -12,14 +12,14 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const ToDoList = ({ data, removeItem }) => {
+const ToDoList = ({ data }) => {
     const classes = useStyles();
 
     return (
         <Box className={classes.toDoList}>
             {
                 data.map(content => (
-                    <ToDoItem key={content} content={content} removeItem={removeItem} />
+                    <ToDoItem key={content} content={content} />
                 ))
             }
         </Box>

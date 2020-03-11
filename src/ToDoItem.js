@@ -1,4 +1,5 @@
 import React from 'react';
+import { ActionContext } from './ActionContext';
 import {
     Paper,
     makeStyles,
@@ -31,17 +32,21 @@ const useStyle = makeStyles(theme => ({
     },
 }));
 
-const ToDoItem = ({ content, removeItem }) => {
+const ToDoItem = ({ content }) => {
 
     const classes = useStyle();
 
     return (
-        <Paper className={classes.toDoItem}>
-            <Box className={classes.itemContent}>{content}</Box>
-            <IconButton color="secondary" className="removeBtn" aria-label="directions" onClick={() => removeItem(content)}>
-                <Close />
-            </IconButton>
-        </Paper>
+        <ActionContext.Consumer>
+            {removeItem => (
+                <Paper className={classes.toDoItem}>
+                    <Box className={classes.itemContent}>{content}</Box>
+                    <IconButton color="secondary" className="removeBtn" aria-label="directions" onClick={() => removeItem(content)}>
+                        <Close />
+                    </IconButton>
+                </Paper>
+            )}
+        </ActionContext.Consumer>
     );
 }
 

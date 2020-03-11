@@ -1,5 +1,6 @@
 import React from 'react';
 import Store from 'store';
+import { ActionContext } from './ActionContext';
 import {
     Container,
     Snackbar
@@ -8,6 +9,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import ToDoList from './ToDoList';
+
 class ToDoApp extends React.Component {
 
     getData = () => {
@@ -96,7 +98,12 @@ class ToDoApp extends React.Component {
             <Container maxWidth="md">
                 <Header />
                 <SearchBar addItem={this.addNewItem} searchItem={this.filterItems} />
-                {filteredList.length > 0 && <ToDoList data={filteredList} removeItem={this.removeItem} />}
+                {
+                    filteredList.length > 0 &&
+                    <ActionContext.Provider value={this.removeItem}>
+                        <ToDoList data={filteredList} />
+                    </ActionContext.Provider>
+                }
                 {noResults && <h2 style={{ textAlign: 'center' }}>{'No Results. Add?'}</h2>}
                 <Snackbar open={open} autoHideDuration={1000} onClose={this.handleClose}>
                     <Alert onClose={this.handleClose} severity={type}>
