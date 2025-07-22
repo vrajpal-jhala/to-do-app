@@ -8,10 +8,10 @@
     "@material-ui/lab": "^4.0.0-alpha.45",
     "bootstrap": "^4.4.1",
     "cra-template": "1.0.2",
-    "npm-sass": "^2.3.0",
+    "npm-sass": "^3.1.0",
     "react": "16.13.0",
     "react-dom": "16.13.0",
-    "react-scripts": "3.4.0",
+    "react-scripts": "5.0.1",
     "store": "^2.0.12",
     "typeface-roboto": "0.0.75"
   },
